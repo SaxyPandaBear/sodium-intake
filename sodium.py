@@ -3,6 +3,7 @@ from nltk.tokenize import sent_tokenize
 import praw
 import sqlite3
 import multiprocessing
+import datetime
 import numpy
 
 import auths
@@ -16,7 +17,8 @@ db.row_factory = sqlite3.Row
 
 # id: the unique post id that reddit gives to each submission
 # sentiment: the average compound sentiment from a submission's text
-db.execute('CREATE TABLE IF NOT EXISTS sodium (id TEXT PRIMARY KEY, sentiment FLOAT)')
+# submission_date: the date and time that the post was submitted
+db.execute('CREATE TABLE IF NOT EXISTS sodium (id TEXT PRIMARY KEY, sentiment FLOAT, submission_date TIMESTAMP)')
 
 analyzer = SentimentIntensityAnalyzer()
 
@@ -39,13 +41,17 @@ def get_subreddits():
 # as well as the submission id
 # positive sentiments are > 0, negative sentiments are < 0, neutral is 0.
 def get_submission_sentiment(submission):
+    timestamp = datetime.datetime.fromtimestamp(submission.created)
     text = submission.selftext
     sentences = sent_tokenize(text)
+    # for each sentence, calculate the compound sentiment
     sentence_sentiments = pool.map_async(get_sentence_sentiment, sentences)
 
-    return submission.id, numpy.average(sentence_sentiments.get())
+    # return the id, the datetime of submission, and the average compound sentiment
+    return submission.id, timestamp, numpy.average(sentence_sentiments.get())
 
 
+# uses the NLTK Vader sentiment analyzer to calculate the compound sentiment of a given sentence
 def get_sentence_sentiment(sentence):
     return analyzer.polarity_scores(sentence)['compound']
 
