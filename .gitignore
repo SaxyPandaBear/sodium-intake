@@ -1,5 +1,8 @@
 .idea
 venv
+__pycache__
 
 auths.py
 *.db
+
+subreddits.txt

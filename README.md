@@ -13,12 +13,16 @@ selected subreddits.
     - Note: These are the only *requirements* to use this application. NLTK itself has other libraries that is uses,
       and will give warnings when those libraries are not installed.
         - To fix this for `twython`, just install it. `pip install twython`
-- Create an `auths.py` file. Template is provided.
+- Create an `auths.py` file. A template is provided.
     - You must register a Reddit application [here](https://www.reddit.com/prefs/apps) in order to
       obtain your client ID and secret for using Reddit's API.
-- 
-
-TBD
+- Create a `subreddits.txt` file containing the subs that will be used for sentiment analysis.
+  Subreddits should be separated by newlines. A template is provided.
+- The first time that the script is run, if there is no "vader_lexicon" file available, it will fail.
+  The following lines of code at the beginning of the file are commented out, but are required for initial setup
+  
+        import nltk
+        nltk.download('vader_lexicon')
 
 ## Usage
 
