@@ -18,12 +18,7 @@ selected subreddits.
       obtain your client ID and secret for using Reddit's API.
 - Create a `subreddits.txt` file containing the subs that will be used for sentiment analysis.
   Subreddits should be separated by newlines. A template is provided.
-- The first time that the script is run, if there is no "vader_lexicon" file available, it will fail.
-  The following lines of code at the beginning of the file are commented out, but are required for initial setup
   
-        import nltk
-        nltk.download('vader_lexicon')
-
 ## Usage
 
 TBD

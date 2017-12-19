@@ -8,7 +8,7 @@ import numpy
 
 import auths
 
-# First time setup requires vader_lexicon
+# First time setup requires vader_lexicon. Subsequent runs do not require these two lines of code
 # import nltk
 # nltk.download('vader_lexicon')
 
