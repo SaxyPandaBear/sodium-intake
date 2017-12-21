@@ -19,7 +19,7 @@ selected subreddits.
 - Create a `subreddits.txt` file containing the subs that will be used for sentiment analysis.
   Subreddits should be separated by newlines. A template is provided.
   
-## Usage
+### TODO
 
-TBD
+- Vizualize data using [matplotlib](https://matplotlib.org/index.html)
 
