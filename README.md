@@ -7,7 +7,7 @@ selected subreddits.
 
 ## Setup and Installation
 
-- Uses [NLTK](http://www.nltk.org/) and [PRAW](https://praw.readthedocs.io/en/latest/)
+- Uses [NLTK](http://www.nltk.org/), [NumPY](http://www.numpy.org/) and [PRAW](https://praw.readthedocs.io/en/latest/)
 - You can install all of the required dependencies by running pip on the `requirements.txt` file
     - `pip install -r requirements.txt`
     - Note: These are the only *requirements* to use this application. NLTK itself has other libraries that is uses,
