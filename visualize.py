@@ -11,6 +11,7 @@ db.row_factory = sqlite3.Row
 values = []
 for row in db.execute('SELECT sentiment, submission_date FROM sodium ORDER BY date(submission_date) ASC'):
     values.append((row[0], row[1]))
+db.close()
 
 # y-axis values
 sentiments = [tup[0] for tup in values]
