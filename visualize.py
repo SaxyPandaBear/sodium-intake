@@ -3,6 +3,7 @@ from matplotlib import dates
 import datetime
 import sqlite3
 import sys
+import numpy
 
 
 def plot_data(data_points):
@@ -32,6 +33,14 @@ def plot_data(data_points):
     # TODO: add text box that displays the overall average sentiment
 
     plot.show()
+
+
+def print_data(data_points):
+    sentiments = [tup[0] for tup in data_points]
+    avg = numpy.average(sentiments)
+    start_date = data_points[0][1]
+    end_date = data_points[-1][1]
+    print("The average sentiment from [{start}, {end}] is {avg}".format(start=start_date, end=end_date, avg=avg))
 
 
 if __name__ == '__main__':
@@ -64,4 +73,4 @@ if __name__ == '__main__':
         else:  # if it's not 'plot', then it must be 'print'
             # TODO: add print_data(values) function
             # should simply print out the overall average sentiment over the date range where data was collected
-            pass
+            print_data(values)
