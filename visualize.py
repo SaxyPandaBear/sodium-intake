@@ -30,17 +30,32 @@ def plot_data(data_points):
     plot.xlim(timestamps[0] - timedelta, timestamps[-1] + timedelta)
     plot.ylim(-1.1, 1.1)
 
-    # TODO: add text box that displays the overall average sentiment
+    # https://matplotlib.org/1.5.3/users/recipes.html
+    box_props = dict(boxstyle='round', facecolor='wheat', alpha=0.5)
+    text = get_display_text(data_points)
+    ax.text(0.05, 0.95, text, transform=ax.transAxes, fontsize=10,
+            verticalalignment='top', bbox=box_props)
 
     plot.show()
 
 
 def print_data(data_points):
     sentiments = [tup[0] for tup in data_points]
-    avg = numpy.average(sentiments)
+    avg = '%.4f' % numpy.average(sentiments)
     start_date = data_points[0][1]
     end_date = data_points[-1][1]
     print("The average sentiment from [{start}, {end}] is {avg}".format(start=start_date, end=end_date, avg=avg))
+
+
+def get_display_text(data_points):
+    sentiments = [tup[0] for tup in data_points]
+    avg = '%.4f' % numpy.average(sentiments)
+    # start by displaying the subreddits used
+    with open('subreddits.txt', 'r') as file:
+        subs = file.read().splitlines()
+    text = '|'.join(subs)
+    text += '\nAverage Sentiment: {}'.format(avg)
+    return text
 
 
 if __name__ == '__main__':
@@ -71,6 +86,5 @@ if __name__ == '__main__':
             # allow users to specify the interval for x-axis ticks, like hourly, daily, etc.
             plot_data(values)
         else:  # if it's not 'plot', then it must be 'print'
-            # TODO: add print_data(values) function
             # should simply print out the overall average sentiment over the date range where data was collected
             print_data(values)
