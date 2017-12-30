@@ -73,9 +73,19 @@ if __name__ == '__main__':
         db = sqlite3.connect('sodium.db')
         db.row_factory = sqlite3.Row
 
+        # define optional start / end dates and times for query
+        # in order for options to be defined, there must be more args
+        # arguments variable already excludes the script name, so we want
+        # 3 args total
+        # format: "start=datetime", "end=datetime"
+        # examples: "start=2017-12-19", "end=2018"
+        # because of string comparison, user can choose to give just year, all the way through seconds
+
+
         # reads from the database and returns a list of tuples. (sentiment, timestamp)
         values = []
-        for row in db.execute('SELECT sentiment, submission_date FROM sodium ORDER BY date(submission_date) ASC'):
+        query = 'SELECT sentiment, submission_date FROM sodium ORDER BY date(submission_date) ASC'
+        for row in db.execute(query):
             values.append((row[0], row[1]))
         db.close()
 
